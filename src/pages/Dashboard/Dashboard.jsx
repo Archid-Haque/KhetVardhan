@@ -1,6 +1,7 @@
 import { useState } from "react";
+
 import FieldSetup from "../../components/FieldSetup/FieldSetup";
-import FieldMap from "../../components/FieldMap/FieldMap";
+import FieldMapSwitcher from "../../components/FieldMapSwitcher/FieldMapSwitcher";
 
 import "./Dashboard.css";
 
@@ -9,8 +10,13 @@ function Dashboard() {
 
   const [field, setField] = useState(() => {
     try {
-      const savedField = localStorage.getItem("khetvardhan-field");
-      return savedField ? JSON.parse(savedField) : null;
+      const savedField = localStorage.getItem(
+        "khetvardhan-field"
+      );
+
+      return savedField
+        ? JSON.parse(savedField)
+        : null;
     } catch {
       return null;
     }
@@ -30,9 +36,14 @@ function Dashboard() {
   return (
     <main className="kv-dashboard">
 
-      {/* Dashboard Header */}
+      {/* =====================================================
+          DASHBOARD HEADER
+      ===================================================== */}
+
       <section className="kv-dashboard-header">
+
         <div>
+
           <span className="kv-dashboard-eyebrow">
             KHETVARDHAN • FIELD INTELLIGENCE
           </span>
@@ -46,78 +57,137 @@ function Dashboard() {
             Understand your farm through satellite data,
             crop health insights and intelligent alerts.
           </p>
+
         </div>
 
         <div className="kv-dashboard-status">
+
           <span className="kv-status-dot" />
+
           SYSTEM ONLINE
+
         </div>
+
       </section>
 
 
-      {/* Field Overview */}
+      {/* =====================================================
+          FIELD OVERVIEW
+      ===================================================== */}
+
       <section className="kv-field-overview">
 
         <div className="kv-section-heading">
+
           <div>
-            <span>FIELD OVERVIEW</span>
+
+            <span>
+              FIELD OVERVIEW
+            </span>
 
             <h2>
               {field ? field.name : "Your Farm"}
             </h2>
+
           </div>
+
 
           <button
             className="kv-field-selector"
             type="button"
             onClick={() => setShowFieldSetup(true)}
           >
-            <span>📍</span>
 
-            {field ? "Change Field" : "Select Field"}
+            <span>
+              📍
+            </span>
+
+            {field
+              ? "Change Field"
+              : "Select Field"}
 
             <span className="kv-selector-arrow">
               ⌄
             </span>
+
           </button>
+
         </div>
 
 
         <div className="kv-field-card">
 
-          {/* REAL MAP */}
+          {/* =================================================
+              2D / 3D FIELD MAP
+          ================================================= */}
+
           <div className="kv-field-map">
-            <FieldMap
+
+            <FieldMapSwitcher
+
               position={
-                field?.latitude && field?.longitude
+                field?.latitude != null &&
+                field?.longitude != null
                   ? {
                       lat: field.latitude,
                       lng: field.longitude,
                     }
                   : null
               }
+
+              /*
+               * IMPORTANT:
+               *
+               * The exact same saved boundary is
+               * passed to both the 2D Leaflet map
+               * and the 3D Cesium map.
+               *
+               * This means switching between 2D
+               * and 3D will NOT remove the field
+               * boundary.
+               */
+
+              boundary={
+                Array.isArray(field?.boundary)
+                  ? field.boundary
+                  : []
+              }
+
             />
+
           </div>
 
 
-          {/* Field Details */}
+          {/* =================================================
+              FIELD DETAILS
+          ================================================= */}
+
           <div className="kv-field-details">
 
             <span className="kv-card-eyebrow">
+
               {field
                 ? "CURRENT FIELD"
                 : "NO FIELD CONNECTED"}
+
             </span>
 
+
             <h3>
+
               {field
                 ? field.name
                 : "Select your field"}
+
             </h3>
 
+
             <p>
+
               {field ? (
+
                 <>
+
                   📍 {field.location}
 
                   {field.crop && (
@@ -127,54 +197,96 @@ function Dashboard() {
                     </>
                   )}
 
-                  {field.latitude && field.longitude && (
+                  {field.latitude != null &&
+                    field.longitude != null && (
+
                     <>
                       <br />
+
                       <small>
-                        {field.latitude.toFixed(5)},{" "}
+                        {field.latitude.toFixed(5)}
+                        {", "}
                         {field.longitude.toFixed(5)}
                       </small>
                     </>
+
                   )}
+
+                  {Array.isArray(field.boundary) &&
+                    field.boundary.length >= 3 && (
+
+                    <>
+                      <br />
+
+                      <small>
+                        ◇ Boundary defined •{" "}
+                        {field.boundary.length} points
+                      </small>
+                    </>
+
+                  )}
+
                 </>
+
               ) : (
+
                 "Connect a field to start receiving satellite-powered intelligence."
+
               )}
+
             </p>
+
 
             <button
               className="kv-connect-button"
               type="button"
               onClick={() => setShowFieldSetup(true)}
             >
+
               {field
                 ? "Update Field"
                 : "Add Your Field"}
 
-              <span>→</span>
+              <span>
+                →
+              </span>
+
             </button>
 
           </div>
+
         </div>
 
       </section>
 
 
-      {/* Intelligence Cards */}
+      {/* =====================================================
+          FIELD INTELLIGENCE
+      ===================================================== */}
+
       <section className="kv-intelligence">
 
         <div className="kv-section-heading">
+
           <div>
-            <span>FIELD INTELLIGENCE</span>
+
+            <span>
+              FIELD INTELLIGENCE
+            </span>
 
             <h2>
               What we know
             </h2>
+
           </div>
+
         </div>
 
 
         <div className="kv-intelligence-grid">
+
+
+          {/* CROP HEALTH */}
 
           <article className="kv-intelligence-card">
 
@@ -197,6 +309,8 @@ function Dashboard() {
           </article>
 
 
+          {/* SATELLITE STATUS */}
+
           <article className="kv-intelligence-card">
 
             <div className="kv-card-icon">
@@ -218,6 +332,8 @@ function Dashboard() {
           </article>
 
 
+          {/* FIELD ALERTS */}
+
           <article className="kv-intelligence-card">
 
             <div className="kv-card-icon">
@@ -238,17 +354,28 @@ function Dashboard() {
 
           </article>
 
+
         </div>
 
       </section>
 
 
-      {/* Field Setup Modal */}
+      {/* =====================================================
+          FIELD SETUP MODAL
+      ===================================================== */}
+
       {showFieldSetup && (
+
         <FieldSetup
-          onClose={() => setShowFieldSetup(false)}
+
+          onClose={() =>
+            setShowFieldSetup(false)
+          }
+
           onSave={handleSaveField}
+
         />
+
       )}
 
     </main>

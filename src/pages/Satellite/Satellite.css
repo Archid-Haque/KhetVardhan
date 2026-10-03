@@ -1,0 +1,1329 @@
+/* =========================================================
+   KHETVARDHAN — SATELLITE INTELLIGENCE
+   Clean single-layout stylesheet
+   Matches Satellite.jsx exactly
+   ========================================================= */
+
+
+/* =========================================================
+   ROOT PAGE
+   ========================================================= */
+
+.kv-satellite-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 82% 8%,
+      rgba(65, 255, 100, 0.08),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 8% 42%,
+      rgba(38, 145, 70, 0.045),
+      transparent 28%
+    ),
+    #020b06;
+
+  color: #f3f7f3;
+}
+
+
+/* =========================================================
+   TECHNICAL BACKGROUND GRID
+   ========================================================= */
+
+.kv-satellite-page::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      rgba(113, 255, 92, 0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(113, 255, 92, 0.045) 1px,
+      transparent 1px
+    );
+
+  background-size: 52px 52px;
+
+  mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    rgba(0, 0, 0, 0.75) 55%,
+    transparent 100%
+  );
+
+  z-index: 0;
+}
+
+
+/* =========================================================
+   COMMON CONTAINER
+   ========================================================= */
+
+.kv-satellite-container {
+  position: relative;
+  z-index: 1;
+
+  width: min(100% - 96px, 1440px);
+
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   COMMON STATUS DOT
+   ========================================================= */
+
+.kv-satellite-page .kv-status-dot {
+  display: inline-block;
+
+  width: 7px;
+  height: 7px;
+
+  margin-right: 9px;
+
+  border-radius: 50%;
+
+  background: #71ff5c;
+
+  box-shadow:
+    0 0 8px rgba(113, 255, 92, 0.85),
+    0 0 18px rgba(113, 255, 92, 0.3);
+
+  vertical-align: middle;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.kv-satellite-hero {
+  position: relative;
+
+  padding: 150px 0 110px;
+
+  min-height: 620px;
+
+  display: flex;
+  align-items: center;
+}
+
+
+.kv-satellite-eyebrow {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 28px;
+
+  color: #71ff5c;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 0.18em;
+
+  text-transform: uppercase;
+}
+
+
+.kv-satellite-hero h1 {
+  max-width: 900px;
+
+  margin: 0;
+
+  color: #f4f8f4;
+
+  font-size: clamp(58px, 7vw, 108px);
+
+  line-height: 0.95;
+
+  font-weight: 800;
+
+  letter-spacing: -0.065em;
+}
+
+
+.kv-satellite-hero h1 span {
+  display: block;
+
+  color: rgba(243, 247, 243, 0.46);
+}
+
+
+.kv-satellite-hero p {
+  max-width: 720px;
+
+  margin: 30px 0 0;
+
+  color: rgba(243, 247, 243, 0.58);
+
+  font-size: 17px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   HERO STATUS
+   ========================================================= */
+
+.kv-satellite-status {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 14px;
+
+  margin-top: 42px;
+
+  padding: 11px 18px 11px 11px;
+
+  border: 1px solid rgba(113, 255, 92, 0.22);
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(113, 255, 92, 0.08),
+      rgba(113, 255, 92, 0.025)
+    );
+
+  box-shadow:
+    0 15px 50px rgba(0, 0, 0, 0.18),
+    inset 0 1px rgba(255, 255, 255, 0.025);
+}
+
+
+.kv-satellite-status-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  border: 1px solid rgba(113, 255, 92, 0.2);
+
+  border-radius: 13px;
+
+  background: rgba(113, 255, 92, 0.06);
+
+  color: #71ff5c;
+}
+
+
+.kv-satellite-status strong {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #71ff5c;
+
+  font-size: 10px;
+  font-weight: 850;
+
+  letter-spacing: 0.14em;
+}
+
+
+.kv-satellite-status span {
+  display: block;
+
+  color: rgba(243, 247, 243, 0.55);
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+.kv-satellite-section {
+  position: relative;
+
+  padding: 80px 0;
+}
+
+
+.kv-satellite-section-heading {
+  margin-bottom: 30px;
+}
+
+
+.kv-satellite-section-heading > span {
+  display: block;
+
+  margin-bottom: 12px;
+
+  color: #71ff5c;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.18em;
+
+  text-transform: uppercase;
+}
+
+
+.kv-satellite-section-heading h2 {
+  margin: 0;
+
+  color: #f3f7f3;
+
+  font-size: clamp(36px, 5vw, 64px);
+
+  line-height: 1;
+
+  font-weight: 800;
+
+  letter-spacing: -0.055em;
+}
+
+
+/* =========================================================
+   CONNECTED FIELD CARD
+   ========================================================= */
+
+.kv-satellite-field-card {
+  display: grid;
+
+  grid-template-columns:
+    minmax(300px, 1.5fr)
+    repeat(4, minmax(130px, 0.7fr));
+
+  min-height: 190px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(132, 255, 132, 0.12);
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(8, 35, 19, 0.78),
+      rgba(3, 17, 10, 0.82)
+    );
+
+  box-shadow:
+    0 25px 80px rgba(0, 0, 0, 0.22),
+    inset 0 1px rgba(255, 255, 255, 0.025);
+}
+
+
+/* =========================================================
+   FIELD MAIN
+   ========================================================= */
+
+.kv-satellite-field-main {
+  display: flex;
+  align-items: center;
+
+  gap: 22px;
+
+  min-width: 0;
+
+  padding: 34px;
+}
+
+
+.kv-satellite-field-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 64px;
+  height: 64px;
+
+  flex-shrink: 0;
+
+  border: 1px solid rgba(113, 255, 92, 0.2);
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(113, 255, 92, 0.1),
+      rgba(113, 255, 92, 0.035)
+    );
+
+  color: #71ff5c;
+
+  box-shadow:
+    0 0 35px rgba(113, 255, 92, 0.06);
+}
+
+
+.kv-card-eyebrow {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #71ff5c;
+
+  font-size: 9px;
+  font-weight: 850;
+
+  letter-spacing: 0.17em;
+
+  text-transform: uppercase;
+}
+
+
+.kv-satellite-field-main h3 {
+  margin: 0 0 7px;
+
+  color: #f4f8f4;
+
+  font-size: 27px;
+
+  line-height: 1;
+
+  font-weight: 750;
+
+  letter-spacing: -0.035em;
+}
+
+
+.kv-satellite-field-main p {
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+
+  margin: 0;
+
+  color: rgba(243, 247, 243, 0.5);
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   FIELD DATA
+   ========================================================= */
+
+.kv-satellite-field-data {
+  display: contents;
+}
+
+
+.kv-satellite-field-data > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  min-width: 0;
+
+  padding: 28px 25px;
+
+  border-left: 1px solid rgba(132, 255, 132, 0.08);
+}
+
+
+.kv-satellite-field-data span {
+  display: block;
+
+  margin-bottom: 9px;
+
+  color: rgba(243, 247, 243, 0.38);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.15em;
+
+  text-transform: uppercase;
+}
+
+
+.kv-satellite-field-data strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: #edf5ee;
+
+  font-size: 14px;
+
+  font-weight: 650;
+
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   EMPTY FIELD
+   ========================================================= */
+
+.kv-satellite-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 220px;
+
+  padding: 40px;
+
+  border: 1px solid rgba(132, 255, 132, 0.1);
+
+  border-radius: 24px;
+
+  background: rgba(5, 25, 14, 0.55);
+
+  color: #71ff5c;
+
+  text-align: center;
+}
+
+
+.kv-satellite-empty h3 {
+  margin: 18px 0 8px;
+
+  color: #f3f7f3;
+
+  font-size: 22px;
+}
+
+
+.kv-satellite-empty p {
+  max-width: 450px;
+
+  margin: 0;
+
+  color: rgba(243, 247, 243, 0.48);
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   IMAGERY CARD
+   ========================================================= */
+
+.kv-satellite-imagery-card {
+  display: grid;
+
+  grid-template-columns: minmax(0, 1.45fr) minmax(330px, 0.75fr);
+
+  min-height: 500px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(132, 255, 132, 0.11);
+
+  border-radius: 26px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(6, 29, 16, 0.78),
+      rgba(2, 13, 8, 0.9)
+    );
+
+  box-shadow:
+    0 30px 100px rgba(0, 0, 0, 0.24);
+}
+
+
+/* =========================================================
+   IMAGERY VISUAL
+   ========================================================= */
+
+.kv-satellite-imagery-visual {
+  position: relative;
+
+  min-height: 500px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(113, 255, 92, 0.1),
+      transparent 32%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(10, 49, 25, 0.6),
+      rgba(2, 15, 9, 0.92)
+    );
+}
+
+
+/* =========================================================
+   IMAGERY GRID
+   ========================================================= */
+
+.kv-imagery-grid {
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(113, 255, 92, 0.065) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(113, 255, 92, 0.065) 1px,
+      transparent 1px
+    );
+
+  background-size: 44px 44px;
+
+  opacity: 0.7;
+}
+
+
+/* =========================================================
+   IMAGERY CENTER
+   ========================================================= */
+
+.kv-imagery-center {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 16px;
+
+  color: rgba(243, 247, 243, 0.55);
+
+  text-align: center;
+}
+
+
+.kv-imagery-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 76px;
+  height: 76px;
+
+  border: 1px solid rgba(113, 255, 92, 0.2);
+
+  border-radius: 22px;
+
+  background: rgba(113, 255, 92, 0.06);
+
+  color: #71ff5c;
+
+  box-shadow:
+    0 0 50px rgba(113, 255, 92, 0.1);
+}
+
+
+.kv-imagery-center span {
+  color: rgba(243, 247, 243, 0.5);
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.18em;
+}
+
+
+/* =========================================================
+   IMAGERY INFO
+   ========================================================= */
+
+.kv-satellite-imagery-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 48px;
+
+  border-left: 1px solid rgba(132, 255, 132, 0.08);
+}
+
+
+.kv-satellite-imagery-info h3 {
+  margin: 0 0 14px;
+
+  color: #f3f7f3;
+
+  font-size: 29px;
+
+  line-height: 1.05;
+
+  font-weight: 750;
+
+  letter-spacing: -0.035em;
+}
+
+
+.kv-satellite-imagery-info > p {
+  margin: 0 0 34px;
+
+  color: rgba(243, 247, 243, 0.48);
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   OBSERVATION DETAILS
+   ========================================================= */
+
+.kv-observation-details {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.kv-observation-details > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 17px 0;
+
+  border-top: 1px solid rgba(132, 255, 132, 0.08);
+}
+
+
+.kv-observation-details span {
+  color: rgba(243, 247, 243, 0.35);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+}
+
+
+.kv-observation-details strong {
+  color: #edf5ee;
+
+  font-size: 12px;
+
+  font-weight: 650;
+
+  text-align: right;
+}
+
+
+.kv-observation-details .kv-status-waiting {
+  color: #71ff5c;
+}
+
+
+/* =========================================================
+   SYSTEM STATUS
+   ========================================================= */
+
+.kv-satellite-status-section {
+  padding-top: 100px;
+}
+
+
+.kv-satellite-status-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 14px;
+}
+
+
+.kv-satellite-status-card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  min-height: 190px;
+
+  padding: 26px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(132, 255, 132, 0.1);
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(7, 31, 17, 0.75),
+      rgba(2, 15, 9, 0.85)
+    );
+
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background 220ms ease;
+}
+
+
+.kv-satellite-status-card:hover {
+  transform: translateY(-3px);
+
+  border-color: rgba(113, 255, 92, 0.22);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(9, 40, 21, 0.82),
+      rgba(2, 17, 10, 0.9)
+    );
+}
+
+
+.kv-status-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  margin-bottom: auto;
+
+  border: 1px solid rgba(113, 255, 92, 0.16);
+
+  border-radius: 13px;
+
+  background: rgba(113, 255, 92, 0.045);
+
+  color: #71ff5c;
+}
+
+
+.kv-satellite-status-card > span {
+  margin-top: 28px;
+
+  color: rgba(243, 247, 243, 0.46);
+
+  font-size: 12px;
+}
+
+
+.kv-satellite-status-card > strong {
+  margin-top: 7px;
+
+  color: #edf5ee;
+
+  font-size: 20px;
+
+  font-weight: 700;
+}
+
+
+.kv-satellite-status-card > strong::before {
+  content: "";
+
+  display: inline-block;
+
+  width: 6px;
+  height: 6px;
+
+  margin-right: 8px;
+
+  border-radius: 50%;
+
+  background: #71ff5c;
+
+  box-shadow: 0 0 9px rgba(113, 255, 92, 0.7);
+
+  vertical-align: middle;
+}
+
+
+/* =========================================================
+   FINAL PIPELINE
+   ========================================================= */
+
+.kv-satellite-final {
+  position: relative;
+
+  padding: 60px 0 130px;
+}
+
+
+.kv-satellite-final-card {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 40px;
+
+  padding: 46px 50px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(113, 255, 92, 0.15);
+
+  border-radius: 26px;
+
+  background:
+    radial-gradient(
+      circle at 85% 50%,
+      rgba(113, 255, 92, 0.08),
+      transparent 32%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(7, 35, 18, 0.8),
+      rgba(2, 16, 9, 0.9)
+    );
+}
+
+
+.kv-satellite-final-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 8%;
+
+  width: 84%;
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(113, 255, 92, 0.5),
+      transparent
+    );
+}
+
+
+.kv-satellite-final-card h2 {
+  margin: 8px 0 12px;
+
+  color: #f4f8f4;
+
+  font-size: clamp(30px, 4vw, 50px);
+
+  line-height: 1;
+
+  font-weight: 800;
+
+  letter-spacing: -0.05em;
+}
+
+
+.kv-satellite-final-card p {
+  max-width: 720px;
+
+  margin: 0;
+
+  color: rgba(243, 247, 243, 0.5);
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+
+.kv-satellite-final-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 72px;
+  height: 72px;
+
+  flex-shrink: 0;
+
+  border: 1px solid rgba(113, 255, 92, 0.2);
+
+  border-radius: 20px;
+
+  background: rgba(113, 255, 92, 0.055);
+
+  color: #71ff5c;
+
+  box-shadow:
+    0 0 45px rgba(113, 255, 92, 0.08);
+}
+
+
+/* =========================================================
+   LARGE TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .kv-satellite-container {
+    width: min(100% - 60px, 1000px);
+  }
+
+  .kv-satellite-hero {
+    min-height: 560px;
+
+    padding: 120px 0 90px;
+  }
+
+  .kv-satellite-field-card {
+    grid-template-columns:
+      minmax(260px, 1.3fr)
+      repeat(4, minmax(105px, 0.7fr));
+  }
+
+  .kv-satellite-field-main {
+    padding: 28px;
+  }
+
+  .kv-satellite-field-data > div {
+    padding: 24px 16px;
+  }
+
+  .kv-satellite-imagery-card {
+    grid-template-columns:
+      minmax(0, 1.2fr)
+      minmax(300px, 0.8fr);
+  }
+
+  .kv-satellite-imagery-info {
+    padding: 34px;
+  }
+
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+  .kv-satellite-container {
+    width: calc(100% - 40px);
+  }
+
+  .kv-satellite-hero {
+    min-height: auto;
+
+    padding: 110px 0 80px;
+  }
+
+  .kv-satellite-hero h1 {
+    font-size: clamp(52px, 10vw, 78px);
+  }
+
+  .kv-satellite-section {
+    padding: 65px 0;
+  }
+
+  .kv-satellite-field-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kv-satellite-field-main {
+    grid-column: 1 / -1;
+
+    border-bottom: 1px solid rgba(132, 255, 132, 0.08);
+  }
+
+  .kv-satellite-field-data > div {
+    border-top: 1px solid rgba(132, 255, 132, 0.08);
+  }
+
+  .kv-satellite-field-data > div:nth-child(odd) {
+    border-left: none;
+  }
+
+  .kv-satellite-imagery-card {
+    grid-template-columns: 1fr;
+  }
+
+  .kv-satellite-imagery-visual {
+    min-height: 430px;
+  }
+
+  .kv-satellite-imagery-info {
+    border-left: none;
+
+    border-top: 1px solid rgba(132, 255, 132, 0.08);
+  }
+
+  .kv-satellite-status-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .kv-satellite-container {
+    width: calc(100% - 28px);
+  }
+
+  .kv-satellite-page::before {
+    background-size: 34px 34px;
+  }
+
+  .kv-satellite-hero {
+    padding: 82px 0 65px;
+  }
+
+  .kv-satellite-eyebrow {
+    margin-bottom: 20px;
+
+    font-size: 10px;
+
+    letter-spacing: 0.14em;
+  }
+
+  .kv-satellite-hero h1 {
+    font-size: clamp(42px, 13vw, 62px);
+
+    letter-spacing: -0.055em;
+  }
+
+  .kv-satellite-hero p {
+    margin-top: 22px;
+
+    font-size: 15px;
+  }
+
+  .kv-satellite-status {
+    display: flex;
+
+    width: 100%;
+
+    margin-top: 30px;
+
+    box-sizing: border-box;
+  }
+
+  .kv-satellite-section {
+    padding: 52px 0;
+  }
+
+  .kv-satellite-section-heading {
+    margin-bottom: 22px;
+  }
+
+  .kv-satellite-section-heading h2 {
+    font-size: 40px;
+  }
+
+
+  /* FIELD */
+
+  .kv-satellite-field-card {
+    grid-template-columns: 1fr;
+
+    border-radius: 20px;
+  }
+
+  .kv-satellite-field-main {
+    grid-column: auto;
+
+    padding: 26px;
+
+    align-items: flex-start;
+  }
+
+  .kv-satellite-field-icon {
+    width: 54px;
+    height: 54px;
+
+    border-radius: 15px;
+  }
+
+  .kv-satellite-field-main h3 {
+    font-size: 23px;
+  }
+
+  .kv-satellite-field-data {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .kv-satellite-field-data > div {
+    min-height: 90px;
+
+    padding: 20px 22px;
+
+    border-left: none;
+
+    border-top: 1px solid rgba(132, 255, 132, 0.08);
+  }
+
+  .kv-satellite-field-data > div:nth-child(even) {
+    border-left: 1px solid rgba(132, 255, 132, 0.08);
+  }
+
+
+  /* IMAGERY */
+
+  .kv-satellite-imagery-card {
+    border-radius: 20px;
+  }
+
+  .kv-satellite-imagery-visual {
+    min-height: 340px;
+  }
+
+  .kv-imagery-grid {
+    background-size: 34px 34px;
+  }
+
+  .kv-satellite-imagery-info {
+    padding: 28px 24px;
+  }
+
+  .kv-satellite-imagery-info h3 {
+    font-size: 25px;
+  }
+
+
+  /* STATUS */
+
+  .kv-satellite-status-section {
+    padding-top: 60px;
+  }
+
+  .kv-satellite-status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .kv-satellite-status-card {
+    min-height: 155px;
+
+    padding: 23px;
+  }
+
+
+  /* FINAL */
+
+  .kv-satellite-final {
+    padding: 35px 0 80px;
+  }
+
+  .kv-satellite-final-card {
+    flex-direction: column;
+    align-items: flex-start;
+
+    padding: 30px 26px;
+
+    border-radius: 20px;
+  }
+
+  .kv-satellite-final-card h2 {
+    font-size: 34px;
+  }
+
+  .kv-satellite-final-icon {
+    width: 58px;
+    height: 58px;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 390px) {
+
+  .kv-satellite-container {
+    width: calc(100% - 20px);
+  }
+
+  .kv-satellite-hero h1 {
+    font-size: 39px;
+  }
+
+  .kv-satellite-section-heading h2 {
+    font-size: 35px;
+  }
+
+  .kv-satellite-field-main {
+    gap: 15px;
+  }
+
+  .kv-satellite-field-main h3 {
+    font-size: 21px;
+  }
+
+  .kv-satellite-field-data {
+    grid-template-columns: 1fr;
+  }
+
+  .kv-satellite-field-data > div:nth-child(even) {
+    border-left: none;
+  }
+
+  .kv-satellite-imagery-visual {
+    min-height: 300px;
+  }
+
+  .kv-satellite-final-card h2 {
+    font-size: 30px;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .kv-satellite-page *,
+  .kv-satellite-page *::before,
+  .kv-satellite-page *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
+
+    scroll-behavior: auto !important;
+  }
+
+}

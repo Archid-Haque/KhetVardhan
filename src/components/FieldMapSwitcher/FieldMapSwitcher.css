@@ -1,0 +1,146 @@
+.kv-map-switcher {
+  position: relative;
+  width: 100%;
+  height: 440px;
+  min-height: 440px;
+  overflow: hidden;
+}
+
+.kv-map-switcher-view {
+  position: relative;
+  width: 100%;
+  height: 440px;
+  min-height: 440px;
+  overflow: hidden;
+}
+
+
+/* =========================
+   VIEW SWITCH
+========================= */
+
+.kv-map-view-switch {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  gap: 3px;
+
+  padding: 4px;
+
+  border: 1px solid rgba(114, 255, 93, 0.18);
+  border-radius: 10px;
+
+  background: rgba(3, 12, 6, 0.88);
+
+  backdrop-filter: blur(14px);
+
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.kv-map-view-switch button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  min-width: 62px;
+  height: 32px;
+
+  padding: 0 10px;
+
+  border: none;
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: rgba(255, 255, 255, 0.48);
+
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.kv-map-view-switch button span {
+  font-size: 14px;
+  line-height: 1;
+}
+
+
+.kv-map-view-switch button:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+
+/* =========================
+   ACTIVE
+========================= */
+
+.kv-map-view-switch button.active {
+  background: rgba(114, 255, 93, 0.13);
+
+  color: #72ff5d;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(114, 255, 93, 0.16),
+    0 0 18px rgba(114, 255, 93, 0.08);
+}
+
+
+.kv-map-view-switch button.active span {
+  color: #72ff5d;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  .kv-map-switcher {
+    height: 300px;
+    min-height: 300px;
+  }
+
+  .kv-map-switcher-view {
+    height: 300px;
+    min-height: 300px;
+  }
+
+  .kv-map-view-switch {
+    top: 12px;
+    right: 12px;
+  }
+
+  .kv-map-view-switch button {
+    min-width: 52px;
+    height: 30px;
+
+    padding: 0 8px;
+
+    font-size: 8px;
+  }
+
+}
