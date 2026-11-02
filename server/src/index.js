@@ -32,12 +32,12 @@ const registerSchema = z.object({
 });
 const loginSchema = z.object({ email: z.string().trim().email(), password: z.string().min(1).max(128) });
 const fieldSchema = z.object({
-  name: z.string().trim().min(1).max(160),
-  location: z.string().trim().min(1).max(240),
+  name: z.string().trim().min(2).max(60),
+  location: z.string().trim().min(3).max(120),
   crop: z.string().trim().max(120).optional().default(""),
   latitude: z.number().min(-90).max(90).nullable().optional(),
   longitude: z.number().min(-180).max(180).nullable().optional(),
-  boundary: z.array(z.object({ lat: z.number(), lng: z.number() })).max(1000).optional().default([]),
+  boundary: z.array(z.object({ lat: z.number().min(-90).max(90), lng: z.number().min(-180).max(180) })).max(100).optional().default([]),
   areaHectares: z.number().positive().max(1_000_000).nullable().optional(),
 });
 const missionSchema = z.object({

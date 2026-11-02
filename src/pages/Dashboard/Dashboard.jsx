@@ -46,6 +46,7 @@ function sameCoordinates(first, second) {
 function Dashboard() {
   const [showFieldSetup, setShowFieldSetup] = useState(false);
   const [setupInitialField, setSetupInitialField] = useState(null);
+  const [setupMode, setSetupMode] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
   const [signedIn, setSignedIn] = useState(false);
@@ -135,22 +136,28 @@ function Dashboard() {
   }, []);
 
   const findLocation = useCallback(() => {
-    if (!navigator.geolocation) return;
-    navigator.geolocation.getCurrentPosition(
-      handleLocationSuccess,
-      (error) => {
+    return new Promise((resolve, reject) => {
+      if (!navigator.geolocation) {
+        reject(new Error("This browser does not provide device location."));
+        return;
+      }
+      const success = (result) => {
+        handleLocationSuccess(result);
+        resolve({ lat: result.coords.latitude, lng: result.coords.longitude, accuracy: result.coords.accuracy });
+      };
+      const failure = (error) => {
         if (error.code === error.PERMISSION_DENIED) {
           handleLocationError(error);
+          reject(new Error("Allow location access for khetvardhan.tech in your browser settings, then try again."));
           return;
         }
-        navigator.geolocation.getCurrentPosition(
-          handleLocationSuccess,
-          handleLocationError,
-          { enableHighAccuracy: false, timeout: 16000, maximumAge: 300000 },
-        );
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 120000 },
-    );
+        navigator.geolocation.getCurrentPosition(success, (fallbackError) => {
+          handleLocationError(fallbackError);
+          reject(new Error("Location is taking longer than expected. Retry or search for your field location."));
+        }, { enableHighAccuracy: false, timeout: 16000, maximumAge: 300000 });
+      };
+      navigator.geolocation.getCurrentPosition(success, failure, { enableHighAccuracy: true, timeout: 15000, maximumAge: 120000 });
+    });
   }, [handleLocationError, handleLocationSuccess]);
 
   const requestLocation = useCallback(() => {
@@ -161,11 +168,11 @@ function Dashboard() {
       return;
     }
     setLocationState("locating");
-    findLocation();
+    return findLocation();
   }, [findLocation]);
 
   useEffect(() => {
-    findLocation();
+    findLocation().catch(() => {});
   }, [findLocation]);
 
   const alertCount = observations.filter((item) => ["moderate", "high"].includes(item.severity)).length;
@@ -175,12 +182,6 @@ function Dashboard() {
     ? null
     : { lat: field.latitude, lng: field.longitude };
   const hasMapEdits = !field || !sameCoordinates(draftPosition, savedPosition) || JSON.stringify(draftBoundary) !== JSON.stringify(field.boundary || []);
-  useEffect(() => {
-    if (location.state?.openFieldSetup) {
-      navigate(".", { replace: true, state: null });
-    }
-  }, [location.state, navigate]);
-
   const focusMap = (target) => {
     setFocusPosition(target);
     setFocusToken((value) => value + 1);
@@ -191,12 +192,13 @@ function Dashboard() {
       focusMap(deviceLocation);
       return;
     }
-    requestLocation();
+    requestLocation()?.catch(() => {});
   };
 
   const closeFieldSetup = () => {
     setShowFieldSetup(false);
     setSetupInitialField(null);
+    setSetupMode(null);
     if (location.state?.openFieldSetup) navigate(".", { replace: true, state: null });
   };
 
@@ -215,10 +217,14 @@ function Dashboard() {
   const openFieldDetails = () => {
     setSetupInitialField(field ? {
       ...field,
-      latitude: draftPosition?.lat ?? field.latitude,
-      longitude: draftPosition?.lng ?? field.longitude,
-      boundary: draftBoundary,
+      name: "",
+      crop: "",
+      location: "",
+      latitude: deviceLocation?.lat ?? null,
+      longitude: deviceLocation?.lng ?? null,
+      boundary: [],
     } : null);
+    setSetupMode(field ? "edit" : "new");
     setShowFieldSetup(true);
   };
 
@@ -240,9 +246,10 @@ function Dashboard() {
     setDrawBoundary(false);
   };
 
-  const handleSaveField = async (fieldData) => {
-    const result = await api(field?.id ? `/fields/${field.id}` : "/fields", {
-      method: field?.id ? "PATCH" : "POST",
+  const handleSaveField = async (fieldData, createNew = false) => {
+    const editId = createNew ? null : (setupInitialField?.id || field?.id);
+    const result = await api(editId ? `/fields/${editId}` : "/fields", {
+      method: editId ? "PATCH" : "POST",
       body: JSON.stringify({ ...fieldData, areaHectares: null }),
     });
     const savedField = {
@@ -270,6 +277,7 @@ function Dashboard() {
         longitude: draftPosition?.lng ?? deviceLocation?.lng ?? null,
         boundary: draftBoundary,
       });
+      setSetupMode("new");
       setShowFieldSetup(true);
       return;
     }
@@ -296,7 +304,9 @@ function Dashboard() {
     }
   };
 
-  const setupField = setupInitialField || field;
+  const setupIsNew = setupMode === "new" || Boolean(location.state?.openFieldSetup);
+  const setupField = setupIsNew ? null : setupInitialField || field;
+  const handleSetupSave = (fieldData) => handleSaveField(fieldData, setupIsNew);
   const locationLabel = locationState === "locating"
     ? "Finding your location"
     : locationState === "ready"
@@ -434,8 +444,10 @@ function Dashboard() {
 
       {(showFieldSetup || location.state?.openFieldSetup) && <FieldSetup
         initialField={setupField}
+        currentPosition={deviceLocation}
+        onRequestLocation={requestLocation}
         onClose={closeFieldSetup}
-        onSave={handleSaveField}
+        onSave={handleSetupSave}
       />}
     </main>
   );
