@@ -7,6 +7,7 @@ import {
   Color,
   EllipsoidTerrainProvider,
   HeightReference,
+  ImageryLayer,
   LabelStyle,
   Math as CesiumMath,
   PolygonHierarchy,
@@ -53,12 +54,12 @@ function FieldMap3D({
 
     const viewer = new Viewer(containerRef.current, {
       terrainProvider: new EllipsoidTerrainProvider(),
-      imageryProvider: new UrlTemplateImageryProvider({
+      baseLayer: new ImageryLayer(new UrlTemplateImageryProvider({
         url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
         credit: IMAGERY_CREDIT,
         maximumLevel: 19,
         enablePickFeatures: false,
-      }),
+      })),
       animation: false,
       timeline: false,
       baseLayerPicker: false,
