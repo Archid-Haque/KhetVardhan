@@ -1,17 +1,27 @@
 .kv-map-switcher {
   position: relative;
   width: 100%;
-  height: 440px;
-  min-height: 440px;
+  height: clamp(300px, 42vw, 500px);
+  min-height: 300px;
   overflow: hidden;
 }
 
 .kv-map-switcher-view {
   position: relative;
   width: 100%;
-  height: 440px;
-  min-height: 440px;
+  height: 100%;
+  min-height: inherit;
   overflow: hidden;
+}
+
+.kv-map-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #aab8aa;
+  background: #08120b;
+  font-size: 12px;
 }
 
 
@@ -120,13 +130,13 @@
 @media (max-width: 600px) {
 
   .kv-map-switcher {
-    height: 300px;
-    min-height: 300px;
+    height: clamp(280px, 78vw, 360px);
+    min-height: 280px;
   }
 
   .kv-map-switcher-view {
-    height: 300px;
-    min-height: 300px;
+    height: 100%;
+    min-height: inherit;
   }
 
   .kv-map-view-switch {
@@ -143,4 +153,22 @@
     font-size: 8px;
   }
 
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .kv-map-switcher {
+    height: clamp(340px, 55vw, 440px);
+  }
+}
+
+@media (max-width: 360px) {
+  .kv-map-view-switch {
+    top: 8px;
+    right: 8px;
+  }
+
+  .kv-map-view-switch button {
+    min-width: 46px;
+    padding-inline: 6px;
+  }
 }

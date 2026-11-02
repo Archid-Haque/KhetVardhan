@@ -6,21 +6,27 @@ import { RouterProvider } from "react-router/dom";
 import App from "./App";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Satellite from "./pages/Satellite/Satellite";
+import Account from "./pages/Account";
+import Missions from "./pages/Missions";
+import Fields from "./pages/Fields";
+import Observations from "./pages/Observations";
+import AppShell from "./components/AppShell";
 
 import "./index.css";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: App,
-  },
-  {
-    path: "/dashboard",
-    Component: Dashboard,
-  },
-  {
-    path: "/satellite",
-    Component: Satellite,
+    Component: AppShell,
+    children: [
+      { index: true, Component: App },
+      { path: "dashboard", Component: Dashboard },
+      { path: "fields", Component: Fields },
+      { path: "observations", Component: Observations },
+      { path: "satellite", Component: Satellite },
+      { path: "missions", Component: Missions },
+      { path: "account", Component: Account },
+    ],
   },
 ]);
 

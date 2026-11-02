@@ -1,17 +1,14 @@
 .kv-real-map-3d {
-  position: relative;
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  min-height: 440px;
+  min-height: 0;
   overflow: hidden;
-  background: #08120b;
+  background: #101d14;
 }
 
-.kv-real-map-3d .cesium-viewer {
-  width: 100%;
-  height: 100%;
-}
-
+.kv-real-map-3d .cesium-viewer,
 .kv-real-map-3d .cesium-widget,
 .kv-real-map-3d .cesium-widget canvas {
   width: 100%;
@@ -19,15 +16,45 @@
 }
 
 .kv-real-map-3d .cesium-viewer-bottom {
+  right: 8px;
+  bottom: 5px;
   font-size: 8px;
+  opacity: 0.9;
 }
+
+.kv-real-map-3d .cesium-credit-logoContainer img { max-height: 16px; }
 
 .kv-real-map-3d .cesium-credit-lightbox-overlay {
   background: rgba(3, 12, 6, 0.95);
 }
 
-@media (max-width: 600px) {
-  .kv-real-map-3d {
-    min-height: 300px;
+.kv-real-map-3d .cesium-viewer-toolbar {
+  top: 66px;
+  right: 12px;
+}
+
+.kv-real-map-3d .cesium-button {
+  background: rgba(4, 14, 8, 0.84);
+  border: 1px solid rgba(230, 240, 224, 0.16);
+  color: #dcebd3;
+}
+
+.kv-real-map-3d .cesium-button:hover {
+  background: rgba(22, 49, 30, 0.95);
+}
+
+.kv-real-map-3d .cesium-viewer-animationContainer,
+.kv-real-map-3d .cesium-viewer-timelineContainer,
+.kv-real-map-3d .cesium-viewer-fullscreenContainer {
+  display: none;
+}
+
+@media (max-width: 560px) {
+  .kv-real-map-3d .cesium-viewer-toolbar {
+    top: 56px;
+    right: 8px;
+    transform: scale(0.86);
+    transform-origin: top right;
   }
+  .kv-real-map-3d .cesium-viewer-bottom { right: 5px; bottom: 42px; font-size: 7px; }
 }

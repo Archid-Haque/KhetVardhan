@@ -1,15 +1,18 @@
-import { useState } from "react";
-import FieldMap from "../FieldMap/FieldMap";
+import { lazy, Suspense, useState } from "react";
 import "./FieldSetup.css";
 
-function FieldSetup({ onClose, onSave }) {
-  const [fieldName, setFieldName] = useState("");
-  const [crop, setCrop] = useState("");
-  const [location, setLocation] = useState("");
+const FieldMap3D = lazy(() => import("../FieldMap3D/FieldMap3D"));
 
-  const [position, setPosition] = useState(null);
-  const [boundary, setBoundary] = useState([]);
+function FieldSetup({ onClose, onSave, initialField = null }) {
+  const [fieldName, setFieldName] = useState(initialField?.name || "");
+  const [crop, setCrop] = useState(initialField?.crop || "");
+  const [location, setLocation] = useState(initialField?.location || "");
+
+  const [position, setPosition] = useState(initialField?.latitude != null && initialField?.longitude != null ? { lat: Number(initialField.latitude), lng: Number(initialField.longitude) } : null);
+  const [boundary, setBoundary] = useState(initialField?.boundary || []);
   const [drawBoundary, setDrawBoundary] = useState(false);
+  const [saveError, setSaveError] = useState("");
+  const [saving, setSaving] = useState(false);
 
   const handleMapLocation = (coordinates) => {
     if (drawBoundary) {
@@ -45,8 +48,9 @@ function FieldSetup({ onClose, onSave }) {
     setDrawBoundary(false);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setSaveError("");
 
     if (
       !fieldName ||
@@ -57,16 +61,21 @@ function FieldSetup({ onClose, onSave }) {
       return;
     }
 
-    onSave({
-      name: fieldName,
-      crop,
-      location,
-
-      latitude: position.lat,
-      longitude: position.lng,
-
-      boundary,
-    });
+    setSaving(true);
+    try {
+      await onSave({
+        name: fieldName,
+        crop,
+        location,
+        latitude: position.lat,
+        longitude: position.lng,
+        boundary,
+      });
+    } catch (error) {
+      setSaveError(error.message || "Unable to save this field. Try again.");
+    } finally {
+      setSaving(false);
+    }
   };
 
   const canContinue =
@@ -207,13 +216,16 @@ function FieldSetup({ onClose, onSave }) {
           {/* Map */}
           <div className="kv-field-preview">
 
-            <FieldMap
-              position={position}
-              onLocationSelect={handleMapLocation}
-              boundary={boundary}
-              onBoundaryChange={handleBoundaryChange}
-              drawBoundary={drawBoundary}
-            />
+            <Suspense fallback={<div className="kv-field-map-loading" role="status">Loading the 3D satellite map…</div>}>
+              <FieldMap3D
+                position={position}
+                onLocationSelect={handleMapLocation}
+                boundary={boundary}
+                onBoundaryChange={handleBoundaryChange}
+                drawBoundary={drawBoundary}
+                pinMode={!drawBoundary}
+              />
+            </Suspense>
 
           </div>
 
@@ -438,13 +450,15 @@ function FieldSetup({ onClose, onSave }) {
             <button
               className="kv-field-save"
               type="submit"
-              disabled={!canContinue}
+              disabled={!canContinue || saving}
             >
-              Save Field
+              {saving ? "Saving…" : "Save Field"}
               <span>→</span>
             </button>
 
           </div>
+
+          {saveError && <p className="kv-field-save-error" role="alert">{saveError}</p>}
 
         </form>
       </div>

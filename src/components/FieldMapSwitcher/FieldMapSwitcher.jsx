@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 
 import FieldMap from "../FieldMap/FieldMap";
-import FieldMap3D from "../FieldMap3D/FieldMap3D";
+
+const FieldMap3D = lazy(() => import("../FieldMap3D/FieldMap3D"));
 
 import "./FieldMapSwitcher.css";
 
@@ -29,10 +30,9 @@ function FieldMapSwitcher({
             drawBoundary={drawBoundary}
           />
         ) : (
-          <FieldMap3D
-            position={position}
-            boundary={boundary}
-          />
+          <Suspense fallback={<div className="kv-map-loading" role="status">Loading 3D field view…</div>}>
+            <FieldMap3D position={position} boundary={boundary} />
+          </Suspense>
         )}
 
       </div>

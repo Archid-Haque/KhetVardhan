@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Satellite as SatelliteIcon,
   MapPin,
@@ -12,19 +12,14 @@ import {
 import "./Satellite.css";
 
 function Satellite() {
-  const [field, setField] = useState(null);
-
-  useEffect(() => {
+  const [field] = useState(() => {
     try {
       const savedField = localStorage.getItem("khetvardhan-field");
-
-      if (savedField) {
-        setField(JSON.parse(savedField));
-      }
-    } catch (error) {
-      console.error("Unable to load field data:", error);
+      return savedField ? JSON.parse(savedField) : null;
+    } catch {
+      return null;
     }
-  }, []);
+  });
 
   return (
     <main className="kv-satellite-page">
@@ -54,9 +49,9 @@ function Satellite() {
             </div>
 
             <div>
-              <strong>MONITORING READY</strong>
+                <strong>OBSERVATION PIPELINE</strong>
               <span>
-                Satellite intelligence is ready for your field.
+                Satellite data connects when a provider is configured.
               </span>
             </div>
           </div>
@@ -262,9 +257,7 @@ function Satellite() {
                 Satellite connection
               </span>
 
-              <strong>
-                Ready
-              </strong>
+              <strong>Provider setup required</strong>
             </div>
 
             <div className="kv-satellite-status-card">
@@ -304,8 +297,8 @@ function Satellite() {
                 AI analysis
               </span>
 
-              <strong>
-                Ready
+                <strong>
+                Integration pending
               </strong>
             </div>
 

@@ -1,0 +1,21 @@
+[Unit]
+Description=KhetVardhan application and API
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+User=khetvardhan
+Group=khetvardhan
+WorkingDirectory=/opt/khetvardhan/server
+EnvironmentFile=/etc/khetvardhan/api.env
+ExecStart=/usr/bin/node /opt/khetvardhan/server/src/index.js
+Restart=on-failure
+RestartSec=4
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

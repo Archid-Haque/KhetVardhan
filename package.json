@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "server": "npm --prefix server start",
+    "db:migrate": "npm --prefix server run migrate"
   },
   "dependencies": {
     "cesium": "^1.146.0",

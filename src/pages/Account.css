@@ -1,0 +1,16 @@
+.kv-account-page { min-height: calc(100dvh - 140px); display: grid; place-items: center; padding: clamp(24px, 6vw, 72px) 18px; background: radial-gradient(ellipse at 50% 25%, rgba(66,150,65,.12), transparent 55%); }
+.kv-account-card { width: min(100%, 460px); padding: clamp(24px, 6vw, 42px); border: 1px solid rgba(255,255,255,.1); border-radius: 22px; background: rgba(255,255,255,.035); box-shadow: 0 26px 90px rgba(0,0,0,.25); }
+.kv-account-emblem { width: 48px; height: 48px; display: grid; place-items: center; margin-bottom: 24px; border-radius: 15px; color: #7cff6b; background: rgba(124,255,107,.09); }
+.kv-account-eyebrow { color: #8bdd7c; font-size: 9px; font-weight: 800; letter-spacing: .16em; }
+.kv-account-card h1 { margin-top: 10px; font-size: clamp(30px, 7vw, 42px); letter-spacing: -.05em; }
+.kv-account-card > p { margin-top: 10px; color: #aab8aa; font-size: 14px; line-height: 1.6; }
+.kv-account-form { display: grid; gap: 16px; margin-top: 28px; }
+.kv-account-form label > span { display: block; margin-bottom: 7px; color: #c1ccc1; font-size: 11px; font-weight: 700; }
+.kv-account-form label > div { min-height: 48px; display: flex; align-items: center; gap: 10px; padding: 0 13px; border: 1px solid rgba(255,255,255,.12); border-radius: 10px; color: #829184; background: rgba(0,0,0,.14); }
+.kv-account-form input { width: 100%; min-width: 0; height: 46px; border: 0; outline: 0; color: #f4f8f2; background: transparent; font-size: 14px; }
+.kv-account-form button { min-height: 48px; margin-top: 4px; border-radius: 10px; color: #07110b; background: #7cff6b; font-weight: 800; cursor: pointer; }
+.kv-account-form button:disabled { opacity: .65; cursor: wait; }
+.kv-account-card .kv-account-error { margin: 0; color: #ff9b8e; font-size: 12px; }
+.kv-account-card .kv-account-switch { margin-top: 20px; color: #aab8aa; font-size: 12px; text-align: center; }
+.kv-account-switch button,.kv-account-back { border: 0; color: #a6ff8f; background: transparent; font: inherit; cursor: pointer; }
+.kv-account-back { display: block; margin-top: 18px; font-size: 12px; text-align: center; }

@@ -50,11 +50,14 @@
 html {
   scroll-behavior: smooth;
   background: var(--kv-bg);
+  text-size-adjust: 100%;
 }
 
 body {
   min-width: 320px;
   min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: clip;
   background: var(--kv-bg);
   color: var(--kv-text);
   font-family:
@@ -87,6 +90,10 @@ a {
 
 img {
   display: block;
+  max-width: 100%;
+}
+
+svg {
   max-width: 100%;
 }
 
@@ -413,4 +420,43 @@ img {
     font-size: 0.72rem;
   }
 
+}
+
+@media (max-width: 360px) {
+  .kv-container {
+    width: calc(100% - 24px);
+  }
+
+  .kv-hero-badge {
+    max-width: 100%;
+    padding: 7px 10px;
+    font-size: 9px;
+    letter-spacing: 0.09em;
+  }
+
+  .kv-hero h1 {
+    font-size: clamp(2.55rem, 14vw, 3rem);
+  }
+
+  .kv-hero-meta {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .kv-hero {
+    min-height: auto;
+    align-items: flex-start;
+  }
+
+  .kv-hero-content {
+    padding-top: max(24px, env(safe-area-inset-top));
+    padding-bottom: max(28px, env(safe-area-inset-bottom));
+    transform: none;
+  }
+
+  .kv-hero-meta {
+    margin-top: 26px;
+  }
 }

@@ -1,0 +1,25 @@
+.kv-platform { min-height: 100dvh; background: #07110b; color: #f4f8f2; }
+.kv-topbar { position: sticky; top: 0; z-index: 900; min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 12px clamp(18px, 5vw, 72px); border-bottom: 1px solid rgba(255,255,255,.08); background: rgba(7,17,11,.88); backdrop-filter: blur(18px); }
+.kv-brand { display: inline-flex; align-items: center; gap: 11px; color: inherit; font-size: 15px; font-weight: 800; letter-spacing: -.03em; }
+.kv-brand-name { display: inline-flex; align-items: baseline; gap: 4px; white-space: nowrap; }
+.kv-brand-name>span { font-size: 14px; font-weight: 800; letter-spacing: -.035em; }
+.kv-brand-name small { display: inline; margin: 0; color: #9aaa9b; font-size: 11px; font-weight: 550; letter-spacing: 0; }
+.kv-brand-logo { width: 42px; height: 42px; flex: 0 0 42px; object-fit: contain; }
+.kv-main-nav { display: flex; align-items: center; gap: clamp(8px, 1.8vw, 26px); }
+.kv-nav-link,.kv-signin-link { min-height: 40px; display: inline-flex; align-items: center; gap: 8px; padding: 0 12px; border-radius: 10px; color: #aab8aa; font-size: 12px; font-weight: 650; transition: .2s ease; }
+.kv-nav-link:hover,.kv-nav-link.is-active { color: #a6ff8f; background: rgba(124,255,107,.08); }
+.kv-signin-link { border: 1px solid rgba(124,255,107,.26); color: #a6ff8f; }
+.kv-account { display: flex; align-items: center; gap: 9px; padding-left: 12px; border-left: 1px solid rgba(255,255,255,.1); font-size: 12px; }
+.kv-avatar { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; color: #07110b; background: #7cff6b; font-weight: 800; }
+.kv-account-name { max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kv-signout,.kv-menu-toggle { min-height: 40px; padding: 0 10px; border: 1px solid rgba(255,255,255,.1); border-radius: 9px; color: #aab8aa; background: transparent; cursor: pointer; }
+.kv-signout:hover { border-color: rgba(124,255,107,.3); color: #a6ff8f; }
+.kv-menu-toggle { display: none; align-items: center; justify-content: center; }
+.kv-route-loading { min-height: 60vh; display: grid; place-items: center; color: #aab8aa; font-size: 13px; }
+.kv-footer { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px 24px; max-width: 1500px; margin: 0 auto; padding: 28px clamp(18px, 5vw, 72px) 34px; border-top: 1px solid rgba(255,255,255,.07); color: #9aaa9b; font-size: 11px; }
+.kv-footer-brand { display: grid; gap: 5px; }
+.kv-footer-brand strong { color: #dce6d8; font-size: 13px; font-weight: 700; }
+.kv-footer-brand span { color: #859487; }
+.kv-footer-contact { color: #bed9ab; font-size: 12px; font-weight: 600; }
+.kv-footer-photo { grid-column: 1/-1; justify-self: end; color: #718174; font-size: 9px; }
+@media (max-width: 760px) { .kv-topbar { min-height: 66px; } .kv-menu-toggle { display: inline-flex; } .kv-main-nav { position: absolute; top: calc(100% + 1px); left: 0; right: 0; display: none; align-items: stretch; gap: 5px; padding: 12px 18px 18px; border-bottom: 1px solid rgba(255,255,255,.08); background: #07110b; } .kv-main-nav.is-open { display: flex; flex-direction: column; } .kv-nav-link,.kv-signin-link { width: 100%; min-height: 46px; } .kv-account { margin-top: 8px; padding: 12px 4px 0; border-left: 0; border-top: 1px solid rgba(255,255,255,.1); } .kv-signout { margin-left: auto; } .kv-footer { grid-template-columns: minmax(0,1fr); gap: 12px; padding-block: 22px; }.kv-footer-photo { grid-column:auto; justify-self:start; } }
