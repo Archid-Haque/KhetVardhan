@@ -4,9 +4,11 @@ import {
   Cartesian2,
   Cartesian3,
   Cartographic,
+  BoundingSphere,
   Color,
   EllipsoidTerrainProvider,
   HeightReference,
+  HeadingPitchRange,
   ImageryLayer,
   LabelStyle,
   Math as CesiumMath,
@@ -21,6 +23,7 @@ import "cesium/Build/Cesium/Widgets/widgets.css";
 import "./FieldMap3D.css";
 
 const IMAGERY_CREDIT = "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community";
+const LABEL_CREDIT = "Esri, HERE, Garmin, FAO, NOAA, USGS";
 
 function FieldMap3D({
   position = null,
@@ -75,6 +78,12 @@ function FieldMap3D({
     });
 
     viewerRef.current = viewer;
+    viewer.imageryLayers.addImageryProvider(new UrlTemplateImageryProvider({
+      url: "https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}",
+      credit: LABEL_CREDIT,
+      maximumLevel: 19,
+      enablePickFeatures: false,
+    }));
     viewer.scene.globe.depthTestAgainstTerrain = false;
     viewer.scene.screenSpaceCameraController.zoomFactor = 1.6;
     viewer.scene.screenSpaceCameraController.minimumZoomDistance = 30;
@@ -208,28 +217,38 @@ function FieldMap3D({
     if (focusRef.current === focusKey) return;
     focusRef.current = focusKey;
 
+    if (!requestedFocus && boundary.length >= 3) {
+      const points = boundary.map((point) => Cartesian3.fromDegrees(point.lng, point.lat));
+      const bounds = BoundingSphere.fromPoints(points);
+      viewer.camera.flyToBoundingSphere(bounds, {
+        offset: new HeadingPitchRange(0, CesiumMath.toRadians(-78), Math.max(350, bounds.radius * 3.2)),
+        duration: 1.6,
+      });
+      return;
+    }
+
     if (target) {
       viewer.camera.flyTo({
-        destination: Cartesian3.fromDegrees(target.lng, target.lat, 2200),
+        destination: Cartesian3.fromDegrees(target.lng, target.lat, 650),
         orientation: {
           heading: CesiumMath.toRadians(0),
-          pitch: CesiumMath.toRadians(-52),
+          pitch: CesiumMath.toRadians(-78),
           roll: 0,
         },
         duration: 1.4,
       });
     } else {
       viewer.camera.flyTo({
-        destination: Cartesian3.fromDegrees(91.91, 25.68, 800000),
+        destination: Cartesian3.fromDegrees(91.91, 25.68, 45000),
         orientation: {
           heading: CesiumMath.toRadians(0),
-          pitch: CesiumMath.toRadians(-48),
+          pitch: CesiumMath.toRadians(-78),
           roll: 0,
         },
         duration: 1.4,
       });
     }
-  }, [position, currentPosition, focusPosition, focusToken]);
+  }, [position, currentPosition, boundary, focusPosition, focusToken]);
 
   return <div ref={containerRef} className="kv-real-map-3d" aria-label="Interactive 3D satellite map" />;
 }

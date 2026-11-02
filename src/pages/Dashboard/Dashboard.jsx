@@ -130,9 +130,28 @@ function Dashboard() {
   const handleLocationError = useCallback((error) => {
     setLocationState(error.code === error.PERMISSION_DENIED ? "denied" : "unavailable");
     setLocationError(error.code === error.PERMISSION_DENIED
-      ? "Location permission is off. Allow it in your browser to show your position."
-      : "Your location could not be determined. You can still pin the farm on the map.");
+      ? "Allow location access for khetvardhan.tech in your browser settings, then try again."
+      : "Location is taking longer than expected. You can retry or pin the farm on the map.");
   }, []);
+
+  const findLocation = useCallback(() => {
+    if (!navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(
+      handleLocationSuccess,
+      (error) => {
+        if (error.code === error.PERMISSION_DENIED) {
+          handleLocationError(error);
+          return;
+        }
+        navigator.geolocation.getCurrentPosition(
+          handleLocationSuccess,
+          handleLocationError,
+          { enableHighAccuracy: false, timeout: 16000, maximumAge: 300000 },
+        );
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 120000 },
+    );
+  }, [handleLocationError, handleLocationSuccess]);
 
   const requestLocation = useCallback(() => {
     setLocationError("");
@@ -142,21 +161,12 @@ function Dashboard() {
       return;
     }
     setLocationState("locating");
-    navigator.geolocation.getCurrentPosition(
-      handleLocationSuccess,
-      handleLocationError,
-      { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 },
-    );
-  }, [handleLocationError, handleLocationSuccess]);
+    findLocation();
+  }, [findLocation]);
 
   useEffect(() => {
-    if (!navigator.geolocation) return;
-    navigator.geolocation.getCurrentPosition(
-      handleLocationSuccess,
-      handleLocationError,
-      { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 },
-    );
-  }, [handleLocationError, handleLocationSuccess]);
+    findLocation();
+  }, [findLocation]);
 
   const alertCount = observations.filter((item) => ["moderate", "high"].includes(item.severity)).length;
   const areaHectares = useMemo(() => estimateAreaHectares(draftBoundary), [draftBoundary]);
@@ -326,7 +336,7 @@ function Dashboard() {
             <div className="kv-ops-map-column">
               <div className="kv-map-toolbar">
                 <div className="kv-imagery-label"><Satellite size={16} /><span><strong>Satellite view</strong><small>Esri World Imagery</small></span></div>
-                <button className="kv-map-locate" type="button" onClick={handleLocate} aria-label="Locate me on the map" title="Locate me"><LocateFixed size={17} /><span>Locate me</span></button>
+                <button className="kv-map-locate" type="button" onClick={handleLocate} disabled={locationState === "locating"} aria-label="Locate me on the map" title="Locate me"><LocateFixed size={17} /><span>{locationState === "locating" ? "Locating…" : deviceLocation ? "Recenter on me" : "Locate me"}</span></button>
               </div>
               <div className={`kv-map-canvas ${drawBoundary ? "is-drawing" : ""} ${pinMode ? "is-pinning" : ""}`}>
                 <Suspense fallback={<div className="kv-map-loading"><span className="kv-loading-orbit" />Opening 3D satellite view…</div>}>
