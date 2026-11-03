@@ -509,7 +509,7 @@ function FieldSetup({ onClose, onSave, initialField = null, currentPosition = nu
                   type="button"
                   className="kv-field-save"
                   onClick={startBoundaryMode}
-                  disabled={!position}
+                  disabled={!(position || currentPosition)}
                 >
                   Define Field Boundary
                   <span>→</span>

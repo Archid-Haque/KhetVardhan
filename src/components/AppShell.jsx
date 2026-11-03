@@ -63,7 +63,7 @@ export default function AppShell() {
       {isPublic || authState === "signed-in" ? <Outlet /> : <main className="kv-route-loading" role="status">{authState === "checking" ? "Checking your secure session…" : "Redirecting to sign in…"}</main>}
       <footer className="kv-footer">
         <div className="kv-footer-brand"><strong>KhetVardhan Technologies</strong><span>Field records, crop observations and inspection plans.</span></div>
-        <a className="kv-footer-contact" href="mailto:contact@khetvardhan.tech">contact@khetvardhan.tech</a>
+        <a className="kv-footer-contact" href="mailto:administration@khetvardhan.tech">administration@khetvardhan.tech</a>
         <a className="kv-footer-photo" href="https://unsplash.com/photos/an-aerial-view-of-a-rice-field-in-the-countryside-SX0jeTOlieo" target="_blank" rel="noreferrer">Field photograph: Jeswin Thomas / Unsplash</a>
       </footer>
     </div>
